@@ -1,0 +1,11 @@
+\begin{tabular}{lrllllll}
+\toprule
+Method & N episodes & Mean PnL & Delta vs Static & t-statistic & p-value & Significance & Cohen's d \\
+\midrule
+Static AS & 100 & 63.6609 & +0.0000 & — & — & — & 0.000 \\
+Constrained AS (Guéant) & 100 & 63.7435 & +0.0826 & 0.090 & 0.9284 & n.s. & 0.013 \\
+Model-Free RL (PPO) & 100 & 54.4643 & -9.1966 & -7.731 & 0.0000 & *** & -1.093 \\
+Hybrid Tuning RL & 100 & 49.3807 & -14.2802 & -14.051 & 0.0000 & *** & -1.987 \\
+Hybrid AS+RL (Proposed) & 100 & 66.2980 & +2.6371 & 1.881 & 0.0619 & n.s. & 0.266 \\
+\bottomrule
+\end{tabular}

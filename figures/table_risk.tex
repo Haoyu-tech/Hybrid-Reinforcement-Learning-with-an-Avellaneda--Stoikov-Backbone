@@ -1,0 +1,11 @@
+\begin{tabular}{lrrrrrrrrrrr}
+\toprule
+label & sharpe & sortino & calmar & max\_drawdown & cvar\_5 & downside\_dev & ret\_skew & ret\_kurtosis\_excess & delta\_sharpe\_vs\_static & dd\_improvement\_vs\_static & cvar\_improvement\_vs\_static \\
+\midrule
+Constrained AS (Guéant) & 7.0543 & 18.5998 & 47.2771 & 1.3483 & 0.3369 & 0.1359 & 1.5302 & 3.0097 & 0.0120 & 0.0020 & 0.0015 \\
+Static AS & 7.0423 & 18.5119 & 47.1457 & 1.3503 & 0.3385 & 0.1364 & 1.5274 & 3.0026 & 0.0000 & 0.0000 & 0.0000 \\
+Hybrid Tuning RL & 5.0058 & 21.7826 & 50.7790 & 0.9725 & 0.2176 & 0.0900 & 2.8826 & 8.4496 & -2.0364 & 0.3778 & 0.1209 \\
+Model-Free RL (PPO) & 4.5569 & 10.6091 & 19.4369 & 2.8021 & 0.6312 & 0.2037 & 1.5015 & 3.8766 & -2.4854 & -1.4518 & -0.2928 \\
+Hybrid AS+RL (Proposed) & 4.4518 & 6.7301 & 13.5814 & 4.8815 & 1.1505 & 0.3908 & 0.2010 & 2.2029 & -2.5905 & -3.5312 & -0.8121 \\
+\bottomrule
+\end{tabular}

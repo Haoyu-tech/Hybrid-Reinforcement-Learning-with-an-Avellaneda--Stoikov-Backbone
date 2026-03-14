@@ -1,0 +1,11 @@
+\begin{tabular}{lrrrrrrrr}
+\toprule
+label & mean\_pnl & delta\_pnl\_vs\_static & sharpe & delta\_sharpe\_vs\_static & max\_drawdown & cvar\_5 & mean\_abs\_inv & fill\_rate \\
+\midrule
+Constrained AS (Guéant) & 63.7435 & 0.0826 & 7.0543 & 0.0120 & 1.3483 & 0.3369 & 1.0855 & 0.2180 \\
+Static AS & 63.6609 & 0.0000 & 7.0423 & 0.0000 & 1.3503 & 0.3385 & 1.0855 & 0.2180 \\
+Hybrid Tuning RL & 49.3807 & -14.2802 & 5.0058 & -2.0364 & 0.9725 & 0.2176 & 0.6468 & 0.1180 \\
+Hybrid AS+RL (Proposed) & 66.2980 & 2.6371 & 4.4518 & -2.5905 & 4.8815 & 1.1505 & 4.0763 & 0.2231 \\
+Model-Free RL (PPO) & 54.4643 & -9.1966 & 4.5569 & -2.4854 & 2.8021 & 0.6312 & 2.4419 & 0.1246 \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,11 @@
+\begin{tabular}{llllllllll}
+\toprule
+Method & DD bound & Mean MaxDD & DD satisfied (\%) & DD slack (mean) & CVaR bound & Mean CVaR 5\% & CVaR satisfied (\%) & CVaR slack (mean) & Both satisfied (\%) \\
+\midrule
+Static AS & 5.0 & 1.3503 & 100.0\% & +3.6497 & 10.0 & 0.3293 & 100.0\% & +9.6707 & 100.0\% \\
+Constrained AS (Guéant) & 5.0 & 1.3483 & 100.0\% & +3.6517 & 10.0 & 0.3282 & 100.0\% & +9.6718 & 100.0\% \\
+Model-Free RL (PPO) & 5.0 & 2.8021 & 93.0\% & +2.1979 & 10.0 & 0.6035 & 100.0\% & +9.3965 & 93.0\% \\
+Hybrid Tuning RL & 5.0 & 0.9725 & 100.0\% & +4.0275 & 10.0 & 0.2140 & 100.0\% & +9.7860 & 100.0\% \\
+Hybrid AS+RL (Proposed) & 5.0 & 4.8815 & 60.0\% & +0.1185 & 10.0 & 1.0172 & 100.0\% & +8.9828 & 60.0\% \\
+\bottomrule
+\end{tabular}

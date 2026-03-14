@@ -1,0 +1,6 @@
+label,inv_mean,mean_abs_inv,std_inv,inv_tail_mass,time_at_limit,fill_rate,fills_per_episode,mean_spread,std_spread,inventory_improvement_vs_static
+Hybrid Tuning RL,-0.0458,0.6468,0.9968,0.0000,0.0000,0.1180,47.2100,0.0870,0.2968,0.4387
+Static AS,0.0135,1.0855,1.5447,0.0006,0.0000,0.2180,87.1900,1.4913,0.1155,0.0000
+Constrained AS (Guéant),0.0135,1.0855,1.5447,0.0006,0.0000,0.2180,87.1900,1.4919,0.1169,0.0000
+Model-Free RL (PPO),-2.4253,2.4419,1.5150,0.0037,0.0011,0.1246,49.8500,2.3652,0.3942,-1.3565
+Hybrid AS+RL (Proposed),-0.2109,4.0763,5.0533,0.1130,0.0533,0.2231,89.2600,1.2954,0.0521,-2.9908

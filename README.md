@@ -1,4 +1,4 @@
-# Chapter 2 Project
+# Hybrid-Reinforcement-Learning-with-an-Avellaneda--Stoikov-Backbone
 
 This folder contains the runnable code for Chapter 2 of the market-making project.  
 The current focus is **market making with Avellaneda-Stoikov (AS), Pure RL, and Hybrid AS+RL**, with the **BTC 1-minute empirical experiment** as the main result line.

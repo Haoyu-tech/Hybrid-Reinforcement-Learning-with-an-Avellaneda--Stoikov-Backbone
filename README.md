@@ -1,4 +1,4 @@
-# Hybrid-Reinforcement-Learning-with-an-Avellaneda--Stoikov-Backbone
+# Chapter 2 Project
 
 This folder contains the runnable code for Chapter 2 of the market-making project.  
 The current focus is **market making with Avellaneda-Stoikov (AS), Pure RL, and Hybrid AS+RL**, with the **BTC 1-minute empirical experiment** as the main result line.
@@ -88,6 +88,73 @@ Expected columns include at least:
 - `close`
 - `volume`
 
+### 1.1 Recommended minute-level data format
+
+The empirical pipeline assumes a **1-minute OHLCV CSV**.
+
+Minimum requirements:
+
+- one row = one minute
+- rows sorted in chronological order
+- `timestamp` in milliseconds or convertible to pandas datetime
+- no missing values in `open/high/low/close/volume`
+
+Recommended checks before running:
+
+```python
+import pandas as pd
+
+df = pd.read_csv("your_btc_1m.csv")
+print(df.head())
+print(df.columns)
+print(df.isna().sum())
+```
+
+If your data uses different column names, rename them before running the script.
+
+Example:
+
+```python
+df = df.rename(columns={
+    "ts": "timestamp",
+    "Open": "open",
+    "High": "high",
+    "Low": "low",
+    "Close": "close",
+    "Volume": "volume",
+})
+```
+
+### 1.2 What “testing with minute-level data” means here
+
+This project does **not** replay full L2 order book messages.
+Instead, it tests market-making policies in a **minute-bar replay environment** built from BTC 1-minute OHLCV data.
+
+The logic is:
+
+1. Use real BTC 1-minute historical bars.
+2. Build episodes of length `500` minutes.
+3. Let each agent post bid/ask quotes at every minute.
+4. Approximate fills using the minute bar:
+   - bid fills if `Low_t <= bid_price`
+   - ask fills if `High_t >= ask_price`
+5. Update cash, inventory, fees, adverse-selection cost, and terminal liquidation cost.
+6. Compute out-of-sample metrics such as:
+   - net PnL
+   - Sharpe
+   - Sortino
+   - max drawdown
+   - average inventory
+   - fill rates
+
+So “using minute-level data to test” in this project means:
+
+- **real BTC price path**
+- **OHLC-based fill approximation**
+- **episode-based out-of-sample evaluation**
+
+not full exchange message replay.
+
 ### 2. Run the empirical experiment
 
 From the `project/` directory:
@@ -105,6 +172,170 @@ What this script does:
 - trains `Pure RL` and `Hybrid AS+RL`
 - evaluates `Static AS`, `Pure RL`, and `Hybrid AS+RL`
 - saves raw outputs, models, figures, and paper tables
+
+### 2.1 Detailed minute-level testing workflow
+
+If you want to understand exactly how the minute-level empirical test works, the pipeline is:
+
+#### Step A. Load the full BTC minute dataset
+
+`train_data.py` reads the CSV and converts `timestamp` into a datetime column:
+
+- source file: `train_data.py`
+- loaded into `df_full`
+
+This is the full historical BTC 1-minute dataset used for both training and out-of-sample testing.
+
+#### Step B. Split training and test periods
+
+The script uses:
+
+- training window: `2020-06-01 ~ 2022-09-30`
+- six out-of-sample BTC test periods:
+  - `COVID_Crash_2020Q1`
+  - `FTX_Collapse_2022Q4`
+  - `Bull_Run_2023Q1`
+  - `LowVol_Sideways_2023Q3`
+  - `ETF_Rally_2024Q1`
+  - `ATH_2024Q4`
+
+This matters because the test is **strictly out-of-sample**.
+The model is not evaluated on the same minutes it was trained on.
+
+#### Step C. Estimate volatility and market regimes from the training set
+
+Before testing, the code computes:
+
+- minute-level rolling volatility
+- episode-level effective volatility `sigma_eff`
+- low / medium / high volatility thresholds
+
+These values are used by:
+
+- the AS benchmark
+- the hybrid backbone
+- the observation features inside the empirical environment
+
+#### Step D. Calibrate the AS benchmark from BTC training data
+
+The benchmark is not a naive default AS model.
+It is first calibrated on BTC minute data by:
+
+1. posting symmetric quotes at different offsets
+2. measuring empirical fill probability from OHLC crossing
+3. fitting the AS fill curve parameters `k` and `A`
+4. grid searching `gamma` and `horizon`
+
+This step is important because otherwise `Static AS` can become unrealistically passive and almost never trade.
+
+#### Step E. Construct the minute-bar replay environment
+
+The empirical environment is implemented in:
+
+- `envs/lob_data_env.py`
+
+At each minute:
+
+- the current bar provides `open/high/low/close/volume`
+- the agent submits `[log_bid_offset, log_ask_offset, log_bid_size, log_ask_size]`
+- prices are normalized within each episode to `S0 = 100`
+- fills are approximated from bar `high/low`
+
+Inventory and PnL are then updated using:
+
+- maker fees
+- cancellation cost
+- inventory penalty
+- adverse-selection penalty
+- terminal flattening cost
+
+#### Step F. Train RL models on the training window
+
+Two learned policies are trained:
+
+- `Pure RL`
+- `Hybrid AS+RL`
+
+The benchmark:
+
+- `Static AS`
+
+is not trained with PPO.
+It is directly evaluated after calibration.
+
+#### Step G. Evaluate on each minute-level out-of-sample period
+
+For each test period:
+
+1. the code samples multiple episode start points
+2. each episode runs for `500` minutes
+3. each of the three agents is tested on the same period
+4. metrics are averaged across episodes
+
+This is the main “minute-level data test”.
+
+#### Step H. Save result files
+
+The empirical test writes:
+
+- `outputs/data_period_results.csv`
+- `outputs/paper_table_overall.csv`
+- `outputs/paper_table_by_period.csv`
+- trained model checkpoints
+- training curves
+- comparison figures
+
+### 2.2 How to test only with existing trained models
+
+If you already have:
+
+- `data_pure_rl_final.pt`
+- `data_hybrid_final.pt`
+- `as_calibration_summary.csv`
+
+you can reuse the saved outputs to generate figures without retraining:
+
+```bash
+python make_figures.py
+```
+
+This does not retrain PPO.
+It reads existing result files and generates paper-ready plots and tables.
+
+### 2.3 How to change the minute-level test setup
+
+The most common changes are:
+
+- change the BTC file path
+- change the train/test dates
+- change the episode length
+- change transaction cost assumptions
+- change the number of test episodes
+
+Relevant locations:
+
+- `DATA_PATH` in `train_data.py`
+- `TRAIN_PERIOD` in `train_data.py`
+- `TEST_PERIODS` in `train_data.py`
+- `ENV_KWARGS["episode_steps"]` in `train_data.py`
+- `evaluate_period(..., n_episodes=20)` in `train_data.py`
+
+### 2.4 Common mistakes when testing with minute-level data
+
+- Using unsorted rows.
+  The environment assumes time is increasing.
+
+- Using missing or duplicated minutes.
+  This can distort volatility estimation and episode construction.
+
+- Mixing training and testing windows.
+  The empirical conclusions are intended to be out-of-sample.
+
+- Interpreting OHLC replay as true order book replay.
+  This project uses a practical approximation, not true queue-level fills.
+
+- Forgetting to recalibrate AS when changing the dataset.
+  The benchmark should be fitted to the new minute-level sample.
 
 ### 3. Generate figures and paper tables
 

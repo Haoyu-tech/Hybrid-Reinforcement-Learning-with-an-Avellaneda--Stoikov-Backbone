@@ -1,0 +1,32 @@
+\begin{table}[htbp]
+\centering
+\caption{Out-of-Sample Performance by Market Regime}
+\label{tab:by_period}
+\small
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{llrrrrrrrrr}
+\toprule
+Period & Method & PnL & Sharpe & Sortino & MaxDD & CVaR95 & MeanInv & FillBid & FillAsk & AdvSel \\
+\midrule
+COVID Crash 2020Q1 & Static AS & 18.357 & 0.396 & 0.706 & 9.512 & 0.320 & 0.759 & 0.203 & 0.204 & 0.043 \\
+COVID Crash 2020Q1 & Pure RL & 43.276 & 4.060 & 7.469 & 1.949 & 0.316 & 0.903 & 0.390 & 0.434 & 0.050 \\
+COVID Crash 2020Q1 & Hybrid AS+RL & 37.477 & 2.893 & 5.257 & 2.690 & 0.310 & 0.903 & 0.262 & 0.267 & 0.040 \\
+FTX Collapse 2022Q4 & Static AS & 4.501 & 0.372 & -0.153 & 1.546 & 0.092 & 0.184 & 0.054 & 0.054 & 0.009 \\
+FTX Collapse 2022Q4 & Pure RL & 13.822 & 0.482 & 2.235 & 1.285 & 0.097 & 0.568 & 0.137 & 0.153 & 0.010 \\
+FTX Collapse 2022Q4 & Hybrid AS+RL & 11.219 & -1.152 & -0.999 & 3.452 & 0.120 & 0.628 & 0.074 & 0.075 & 0.012 \\
+Bull Run 2023Q1 & Static AS & 3.309 & -0.125 & -0.809 & 2.354 & 0.087 & 0.309 & 0.037 & 0.036 & 0.005 \\
+Bull Run 2023Q1 & Pure RL & 13.368 & 2.275 & 5.438 & 1.070 & 0.083 & 0.592 & 0.133 & 0.157 & 0.008 \\
+Bull Run 2023Q1 & Hybrid AS+RL & 8.135 & 0.671 & 1.518 & 2.094 & 0.109 & 0.524 & 0.066 & 0.061 & 0.004 \\
+LowVol 2023Q3 & Static AS & 0.907 & -0.261 & -0.895 & 1.639 & 0.057 & 0.097 & 0.013 & 0.013 & 0.003 \\
+LowVol 2023Q3 & Pure RL & 4.541 & -1.870 & -2.063 & 2.248 & 0.081 & 0.481 & 0.044 & 0.056 & 0.004 \\
+LowVol 2023Q3 & Hybrid AS+RL & 3.183 & -2.571 & 8.036 & 3.156 & 0.104 & 0.405 & 0.022 & 0.018 & 0.003 \\
+ETF Rally 2024Q1 & Static AS & 3.975 & -1.182 & -2.031 & 8.748 & 0.179 & 0.619 & 0.040 & 0.040 & 0.005 \\
+ETF Rally 2024Q1 & Pure RL & 15.669 & 2.698 & 5.231 & 1.199 & 0.098 & 0.703 & 0.170 & 0.201 & 0.008 \\
+ETF Rally 2024Q1 & Hybrid AS+RL & 10.516 & 0.397 & 0.988 & 2.427 & 0.125 & 0.665 & 0.076 & 0.080 & 0.005 \\
+ATH 2024Q4 & Static AS & 2.004 & -0.989 & -1.721 & 3.790 & 0.078 & 0.368 & 0.024 & 0.023 & 0.003 \\
+ATH 2024Q4 & Pure RL & 12.306 & 1.411 & 3.920 & 1.221 & 0.084 & 0.664 & 0.123 & 0.151 & 0.005 \\
+ATH 2024Q4 & Hybrid AS+RL & 7.340 & -0.216 & 0.728 & 2.624 & 0.106 & 0.575 & 0.049 & 0.048 & 0.003 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

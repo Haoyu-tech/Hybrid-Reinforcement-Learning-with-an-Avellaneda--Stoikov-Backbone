@@ -1,0 +1,12 @@
+item,value
+sigma_eff,0.020456291143019764
+k_fit_from_fill_curve,17.466469684062396
+A_fit_from_fill_curve,1.2757241478724275
+best_gamma,0.02
+best_k,8.733234842031198
+best_horizon,1.0
+best_score,-0.2579528898849857
+best_sharpe,-0.6060280163513888
+best_net_pnl,14.414900367924323
+best_fill_bid,0.1491666666666667
+best_fill_ask,0.14900000000000005

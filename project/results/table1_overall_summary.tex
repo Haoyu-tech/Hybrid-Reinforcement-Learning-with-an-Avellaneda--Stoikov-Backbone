@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\caption{Out-of-Sample Performance Summary (Mean across 6 market regimes, 20 episodes each)}
+\label{tab:overall}
+\small
+\begin{tabular}{llrrrrrrr}
+\toprule
+Method & P\&L & Sharpe & Sortino & MaxDD & CVaR95 & Mean|Inv| & BidFill & AdvSel \\
+\midrule
+Hybrid AS+RL & 12.98 $\pm$ 12.33 & 0.004 & 2.588 & 2.740 & 0.146 & 0.617 & 0.091 & 0.011 \\
+Pure RL & 17.16 $\pm$ 13.36 & 1.509 & 3.705 & 1.495 & 0.127 & 0.652 & 0.166 & 0.014 \\
+Static AS & 5.51 $\pm$ 6.43 & -0.298 & -0.817 & 4.598 & 0.136 & 0.389 & 0.062 & 0.011 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,4 +1,4 @@
-# Chapter 2 Project
+# Hybrid-Reinforcement-Learning-with-an-Avellaneda--Stoikov-Backbone
 
 This folder contains the runnable code for Chapter 2 of the market-making project.  
 The current focus is **market making with Avellaneda-Stoikov (AS), Pure RL, and Hybrid AS+RL**, with the **BTC 1-minute empirical experiment** as the main result line.
@@ -35,15 +35,15 @@ The current main pipeline is:
 
 ### Out-of-sample PnL across six BTC regimes
 
-![BTC regime PnL comparison](results/fig1_pnl_comparison.png)
+![BTC regime PnL comparison](project/results/fig1_pnl_comparison.png)
 
 ### BTC empirical equity curves across all six test periods
 
-![BTC empirical equity curves](results/fig11_btc_equity_curves.png)
+![BTC empirical equity curves](project/results/fig11_btc_equity_curves.png)
 
 ### Terminal PnL distributions by BTC regime
 
-![BTC terminal PnL distributions](results/fig12_btc_terminal_distribution.png)
+![BTC terminal PnL distributions](project/results/fig12_btc_terminal_distribution.png)
 
 ## Directory Structure
 

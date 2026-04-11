@@ -31,6 +31,20 @@ The current main pipeline is:
    - `Hybrid AS+RL`
 5. Export paper-ready figures and tables.
 
+## Visual Overview
+
+### Out-of-sample PnL across six BTC regimes
+
+![BTC regime PnL comparison](results/fig1_pnl_comparison.png)
+
+### BTC empirical equity curves across all six test periods
+
+![BTC empirical equity curves](results/fig11_btc_equity_curves.png)
+
+### Terminal PnL distributions by BTC regime
+
+![BTC terminal PnL distributions](results/fig12_btc_terminal_distribution.png)
+
 ## Directory Structure
 
 ```text
@@ -154,6 +168,21 @@ So “using minute-level data to test” in this project means:
 - **episode-based out-of-sample evaluation**
 
 not full exchange message replay.
+
+### 1.3 Visual intuition for the minute-level test
+
+The following figures are especially useful when explaining what the minute-level empirical test is doing:
+
+- `results/fig5_fill_curve_calibration.png`
+  shows how the AS benchmark is calibrated from BTC minute data
+- `results/fig11_btc_equity_curves.png`
+  shows cumulative episode-level PnL paths across six BTC regimes
+- `results/fig12_btc_terminal_distribution.png`
+  shows whether the performance improvement is distribution-wide rather than driven by a few episodes
+
+#### AS calibration from minute-bar fill behavior
+
+![AS fill-curve calibration](results/fig5_fill_curve_calibration.png)
 
 ### 2. Run the empirical experiment
 
@@ -284,6 +313,16 @@ The empirical test writes:
 - trained model checkpoints
 - training curves
 - comparison figures
+
+### 2.5 What the minute-level test results look like
+
+#### Regime-level performance comparison
+
+![Regime-level BTC performance](results/fig2_risk_metrics.png)
+
+#### Execution and inventory behavior
+
+![BTC execution and inventory behavior](results/fig3_behavior.png)
 
 ### 2.2 How to test only with existing trained models
 

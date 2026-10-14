@@ -1,6 +1,8 @@
 # Hybrid-Reinforcement-Learning-with-an-Avellaneda--Stoikov-Backbone
 
-This folder contains the runnable code for Chapter of the market-making.  
+[Reproduction guide](docs/REPRODUCIBILITY.md) · [Code and artifact map](docs/REPOSITORY_MAP.md)
+
+This repository contains market-making research code and saved figures.  
 The current focus is **market making with Avellaneda-Stoikov (AS), Pure RL, and Hybrid AS+RL**, with the **BTC 1-minute empirical experiment** as the main result line.
 
 ## What This Project Does
@@ -85,13 +87,14 @@ If you want to generate PowerPoint materials outside this folder, `python-pptx` 
 
 ### 1. Set the BTC data path
 
-In `train_data.py`, the real data CSV path is defined by:
+Install the project dependencies from the repository root, then configure the data path:
 
-```python
-DATA_PATH = "E:/CTA分钟级别/data/binance_btc_perp/btc_usdt_perp_1m_from_2020.csv"
+```powershell
+python -m pip install -r requirements.txt
+$env:BTC_DATA_PATH = "C:/data/btc_usdt_perp_1m.csv"
 ```
 
-Before running the empirical experiment, update this path if your data is stored elsewhere.
+`project/train_data.py` reads `BTC_DATA_PATH`. If it is unset, the original local path remains the fallback. `project/make_figures.py` imports the same setting.
 
 Expected columns include at least:
 
@@ -182,7 +185,7 @@ The following figures are especially useful when explaining what the minute-leve
 
 #### AS calibration from minute-bar fill behavior
 
-![AS fill-curve calibration](results/fig5_fill_curve_calibration.png)
+![AS fill-curve calibration](project/results/fig5_fill_curve_calibration.png)
 
 ### 2. Run the empirical experiment
 
@@ -318,11 +321,11 @@ The empirical test writes:
 
 #### Regime-level performance comparison
 
-![Regime-level BTC performance](results/fig2_risk_metrics.png)
+![Regime-level BTC performance](project/results/fig2_risk_metrics.png)
 
 #### Execution and inventory behavior
 
-![BTC execution and inventory behavior](results/fig3_behavior.png)
+![BTC execution and inventory behavior](project/results/fig3_behavior.png)
 
 ### 2.2 How to test only with existing trained models
 
@@ -474,8 +477,8 @@ Only run `train_ppo.py` if you also want the synthetic comparison line.
 ## Contact Between Code and Paper Assets
 
 This `project/` folder produces the numerical results and figures.  
-The paper assembly assets live outside this folder in:
+The original paper assembly assets are external to this repository:
 
 - `../4.11Chapter2_work/`
 
-That folder contains the LaTeX manuscript, selected figures, and packaged empirical paper materials.
+That local folder is not shipped here; it is not required to inspect the committed figures. Rebuilding figures can require the raw data and checkpoints.

@@ -26,7 +26,10 @@ from envs.lob_data_env import LOBDataEnv, VecLOBDataEnv
 from models.avellaneda_stoikov import AvellanedaStoikov
 
 OUTPUT_DIR = os.path.join(_HERE, "outputs")
-DATA_PATH = "E:/CTA分钟级别/data/binance_btc_perp/btc_usdt_perp_1m_from_2020.csv"
+DATA_PATH = os.environ.get(
+    "BTC_DATA_PATH",
+    "E:/CTA分钟级别/data/binance_btc_perp/btc_usdt_perp_1m_from_2020.csv",
+)
 
 TRAIN_PERIOD = ("2020-06-01", "2022-09-30")
 TEST_PERIODS = {
